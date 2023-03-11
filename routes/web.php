@@ -16,13 +16,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/myprofile/{user_id}', [\App\Http\Controllers\MyprofileController::class, 'index']);
+Route::get('/meme/profile/{user_id}', [\App\Http\Controllers\OtherprofileController::class, 'index']);
+Route::get('/meme', [\App\Http\Controllers\BlogPostController::class, 'index']);
 
-Route::get('/blog', [\App\Http\Controllers\BlogPostController::class, 'index']);
-Route::get('/blog/{blogPost}', [\App\Http\Controllers\BlogPostController::class, 'show']);
-Route::get('/blog/create/post', [\App\Http\Controllers\BlogPostController::class, 'create']);
-Route::post('/blog/create/post', [\App\Http\Controllers\BlogPostController::class, 'store']); 
-Route::get('/blog/{blogPost}/edit', [\App\Http\Controllers\BlogPostController::class, 'edit']); 
-Route::put('/blog/{blogPost}/edit', [\App\Http\Controllers\BlogPostController::class, 'update']); 
-Route::delete('/blog/{blogPost}', [\App\Http\Controllers\BlogPostController::class, 'destroy']); 
+Route::get('/meme/{blogPost}', [\App\Http\Controllers\BlogPostController::class, 'show']);
+
+Route::get('/meme/create/post', [\App\Http\Controllers\BlogPostController::class, 'create']);
+Route::post('/meme/create/post', [\App\Http\Controllers\BlogPostController::class, 'store']); 
+Route::get('/meme/{blogPost}/edit', [\App\Http\Controllers\BlogPostController::class, 'edit']); 
+Route::put('/meme/{blogPost}/edit', [\App\Http\Controllers\BlogPostController::class, 'update']); 
+Route::delete('/meme/{blogPost}', [\App\Http\Controllers\BlogPostController::class, 'destroy']); 
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
 
 ?>

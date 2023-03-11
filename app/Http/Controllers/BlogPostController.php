@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogPostController extends Controller
 {
@@ -14,8 +15,8 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $posts = BlogPost::all(); //fetch all blog posts from DB
-	    return view('blog.index', [
+        $posts = BlogPost::latest()->get(); //fetch all blog posts from DB
+	    return view('meme.index', [
             'posts' => $posts,
         ]);
     }
@@ -27,7 +28,7 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        return view('meme.create');
     }
 
     /**
@@ -38,13 +39,17 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::id();
+        $imageName = time().'.'.$request->photo->extension();
+        $request->photo->move(public_path('images'), $imageName);
         $newPost = BlogPost::create([
             'title' => $request->title,
+            'photo_path' => $imageName,
             'body' => $request->body,
-            'user_id' => 1
+            'user_id' => $id
         ]);
 
-        return redirect('blog/' . $newPost->id);
+        return redirect('meme/' . $newPost->id);
     }
 
     /**
@@ -55,7 +60,7 @@ class BlogPostController extends Controller
      */
     public function show(BlogPost $blogPost)
     {
-        return view('blog.show', [
+        return view('meme.show', [
             'post' => $blogPost,
         ]);
     }
@@ -68,7 +73,7 @@ class BlogPostController extends Controller
      */
     public function edit(BlogPost $blogPost)
     {
-        return view('blog.edit', [
+        return view('meme.edit', [
             'post' => $blogPost,
             ]);
     }
@@ -83,12 +88,31 @@ class BlogPostController extends Controller
     public function update(Request $request, BlogPost $blogPost)
     {
         
-            $blogPost->update([
-                'title' => $request->title,
-                'body' => $request->body
-            ]);
-    
-            return redirect('blog/' . $blogPost->id);
+      
+     if($request->photo != ''){        
+        $path = public_path().'/images/';
+
+        //code for remove old photo
+        if($blogPost->photo != ''  && $blogPost->photo != null){
+             $file_old = $path.$blogPost->photo;
+             unlink($file_old);
+        }
+
+        //upload new file
+        $file = $request->photo;
+        $filename = time().'.'.$file->extension();
+        $file->move($path, $filename);
+
+        //for update in table
+        $blogPost->update(['photo_path' => $filename]);
+   }
+
+        $blogPost->update([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]);
+          
+       return redirect('meme/' . $blogPost->id);
        
     }
 
@@ -102,6 +126,6 @@ class BlogPostController extends Controller
     {
         $blogPost->delete();
 
-        return redirect('/blog');
+        return redirect('/meme');
     }
 }
