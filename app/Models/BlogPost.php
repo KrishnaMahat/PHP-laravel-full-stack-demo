@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogPost extends Model
 {
-    use HasFactory;
+    use HasFactory ;
 
     protected $fillable = ['title', 'photo_path' , 'body', 'user_id'];
 
-    
+   
 }

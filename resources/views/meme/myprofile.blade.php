@@ -12,9 +12,9 @@
                             <h3 class="display-one text-center mb-3">Memer@ {{Auth::user()->name;}} </h3>  
                         </div>
                         <div class="d-flex gap-1 justify-content-center text-center mb-3">
-                            <div>
+                            <!-- <div>
                             <button class="btn btn-danger btn-sm">Follow</button>
-                            </div>
+                            </div> -->
                             @if(\Auth::user())
                             <div>
                                 <a href="/meme/create/post" class="btn btn-warning btn-sm">Add Memes</a>
@@ -23,21 +23,33 @@
                         </div>
                     </div>
 
-
+                            @php
+                                $followers = app(\App\Models\followers::class);
+                                $datas = $followers->all();
+                                $followercount =0;
+                                $followingcount =0;
+                            @endphp
+                            @forelse ($datas as $data)
+                            @if($data->user_id == auth()->id())
+                            @php    $followercount +=1; @endphp
+                            @endif
+                            @if($data->follower_id == auth()->id())
+                            @php    $followingcount +=1; @endphp
+                            @endif
+                            @empty
+                            @endforelse 
 
                     <div class="row w-50">
                     <div class="d-flex justify-content-between text-center">
-                        <div>
-                            <p class="mb-2 h5">8471</p>
-                            <p class="text-muted mb-0">Total Haha</p>
+                    <div>
+                            <p class="mb-2 h5">{{$followingcount}}</p>
+                            <p class="text-muted mb-0">Memer Following</p>
                         </div>
                         <div class="px-3">
-                            <p class="mb-2 h5">8512</p>
-                            <p class="text-muted mb-0">Memer Joined</p>
+                            <p class="mb-2 h5">{{$followercount}}</p>
+                            <p class="text-muted mb-0">Memer Follower</p>
                         </div>
-                        <div>
-                            
-                            
+                        <div>  
                             <p class="mb-2 h5">{{$total=$posts->count()}}</p>
                             <p class="text-muted mb-0">Total Memes</p>
                         </div>
@@ -67,7 +79,7 @@
                     <div class="card-title"><h5>{{ ucfirst($post->title) }}</h5></div>
                     <img src = "{{asset('images/'.$post->photo_path)}}" class ="card-img-top w-100">
                         <li  >
-                        <a href="/meme/{{$post->id}}" class="btn btn-primary">Settings</a>
+                        <a href="/meme/{{$post->id}}" class="btn btn-primary mt-3">Settings</a>
                         </li>
                     </ul>
                 </div>

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Overtrue\LaravelFollow\Traits\Followable;
+
 
 class BlogPostController extends Controller
 {
+    use Followable;
     /**
      * Display a listing of the resource.
      *
@@ -128,4 +131,10 @@ class BlogPostController extends Controller
 
         return redirect('/meme');
     }
+
+   
+
+
+
+
 }

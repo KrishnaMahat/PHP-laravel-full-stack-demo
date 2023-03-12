@@ -21,11 +21,42 @@
                             @endphp
                             
                             <h3 class="display-one text-center mb-3">Memer@ {{$username = $user->name;}} </h3>  
-                        </div>
-                        <div class="d-flex gap-1 justify-content-center text-center mb-3">
-                            <div>
-                            <button class="btn btn-danger btn-sm">Follow</button>
                             </div>
+                            <div class="d-flex gap-1 justify-content-center text-center mb-3">
+                            
+                            @php
+                                $followers = app(\App\Models\followers::class);
+                                $datas = $followers->all();
+                                $count = 0;
+                                $followercount =0;
+                                $followingcount =0;
+                            @endphp
+
+
+                            @if(\Auth::user() && auth()->id()!=$user->id)       
+                                    @forelse ($datas as $data)
+
+                                    @if($data->user_id == $user->id && $data->follower_id == auth()->id()) 
+                                         @php    $count +=1; @endphp
+                                    @endif 
+                                    @empty 
+                                    
+                                    @endforelse
+
+                                    @if($count == 1)
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm">Unfollow</button>
+                                    </form>
+                                    @else
+                                    <form action="{{ route('users.store', $user->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm">Follow</button>
+                                    </form>  
+                                    @endif
+                                     
+                            @endif
+
                             @if(\Auth::user())
                             <div>
                                 <a href="/meme/create/post" class="btn btn-warning btn-sm">Add Memes</a>
@@ -34,17 +65,26 @@
                         </div>
                     </div>
 
+                    @forelse ($datas as $data)
+                    @if($data->user_id == $user->id)
+                    @php    $followercount +=1; @endphp
+                    @endif
+                    @if($data->follower_id == $user->id)
+                    @php    $followingcount +=1; @endphp
+                    @endif
+                    @empty
+                    @endforelse
 
 
                     <div class="row w-50">
                     <div class="d-flex justify-content-between text-center">
                         <div>
-                            <p class="mb-2 h5">8471</p>
-                            <p class="text-muted mb-0">Total Haha</p>
+                            <p class="mb-2 h5">{{$followingcount}}</p>
+                            <p class="text-muted mb-0">Memer Following</p>
                         </div>
                         <div class="px-3">
-                            <p class="mb-2 h5">8512</p>
-                            <p class="text-muted mb-0">Memer Joined</p>
+                            <p class="mb-2 h5">{{$followercount}}</p>
+                            <p class="text-muted mb-0">Memer Follower</p>
                         </div>
                         <div>
                             <p class="mb-2 h5">{{$total}}</p>

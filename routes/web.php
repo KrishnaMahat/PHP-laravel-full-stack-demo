@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Controllers\BlogPostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('/users/{id}/store', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
 
-
+Route::post('/users/{uid}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
 
 ?>

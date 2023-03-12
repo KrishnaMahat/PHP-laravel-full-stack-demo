@@ -9,9 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 
+
+
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +26,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function blogpost(){
-        return $this->hasMany('App\BlogPost');
-    }
+   
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -42,7 +42,28 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-   
-
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
     
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function follow(User $user)
+    {
+        $this->following()->create([
+            'user_id' => $user->id
+        ]);
+    }
+
+    public function unfollow(User $user)
+    {
+        $this->following()
+            ->where('user_id', $user->id)
+            ->delete();
+    }
+   
 }

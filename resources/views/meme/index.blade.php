@@ -28,14 +28,15 @@
                 $user_id = $post->user_id;
                 $user  = \App\Models\User::find($user_id);
                 @endphp
-                 <div class="card p-4 h-200">
+                <div class="row d-flex gap-1 justify-content-center mb-3">
+                 <div class="card p-4">
                  <div class="card-title"><h3>Memer: <a href="./meme/profile/{{$user_id}}"> {{$username = $user->name;}}</a></h3></div>
                  Created at: {{ ($post->created_at) }}
-                 <div class="card-title"> </div>
+                 
                     
                     <ul style = "list-style-type: none;">
                     <div class="card-title mt-2"><h5>{{ ucfirst($post->title) }}<h5></div>
-                    <img src = "{{asset('images/'.$post->photo_path)}}" class ="card-img-top w-30">
+                    <img src = "{{asset('images/'.$post->photo_path)}}" class ="card-img-top">
                         <li  >
                        
                         <a href="/meme/{{$post->id}}" class="btn btn-primary mt-3"  @if( $post->user_id != auth()->id()) hidden @endif>  Settings </a>
@@ -49,5 +50,6 @@
                 @endforelse
             </div>
         </div>
+</div>
     </div>
 @endsection
