@@ -43,16 +43,47 @@
                         
                         </li>
                     </ul>
-                    <img src = "reacticon/haha.png" height =30px width=30px>
-                    <img src = "reacticon/hahadone.jpeg" height =30px width=30px hidden>
-
+                    <div class="d-flex gap-2 align-items-center">
+                    <img src = "reacticon/haha.png" class = "toggle-image" height =30px width=30px id="haha-image-{{$post->id}}" @if (Auth::check()) onClick="updateHahaCount({{$post->id}}) @endif ">
+                    <p id="haha-count-{{$post->id}}">{{$post->haha_count}}</p>
+                    </div>
                 </div>
                     <br>
                 @empty
                     <p class="text-warning">No blog Posts available</p>
                 @endforelse
+                </div>
             </div>
         </div>
-</div>
     </div>
+
+    <script>
+    
+        function updateHahaCount(id) {
+         
+            if(document.getElementById('haha-image-'+ id).src == 'reacticon/haha.png') {
+                document.getElementById('haha-image-'+ id).src = 'reacticon/hahadone.png';
+            } else if(document.getElementById('haha-image-'+ id).src == 'reacticon/hahadone.png') {
+                document.getElementById('haha-image-'+ id).src = 'reacticon/haha.png';
+            }
+            $.ajax({
+                type: 'POST',
+                url: "/update-haha-count/" + id,
+                dataType: 'json',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function(response) {
+                    var data = response.data;
+                    $('#haha-count-' + id).html(data);
+                },
+               
+                error: function() {
+                    alert('Haha done Already');
+                }
+            });
+        }
+       
+
+    </script>
+
+    
 @endsection

@@ -132,7 +132,6 @@ class BlogPostController extends Controller
         return redirect('/meme');
     }
 
-   
 
 
 

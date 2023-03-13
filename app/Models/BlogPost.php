@@ -9,7 +9,7 @@ class BlogPost extends Model
 {
     use HasFactory ;
 
-    protected $fillable = ['title', 'photo_path' , 'body', 'user_id'];
+    protected $fillable = ['title', 'photo_path' , 'body','haha_count','user_id'];
 
    
 }

@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 Route::get('/myprofile/{user_id}', [\App\Http\Controllers\MyprofileController::class, 'index']);
 Route::get('/meme/profile/{user_id}', [\App\Http\Controllers\OtherprofileController::class, 'index']);
+
 Route::get('/meme', [\App\Http\Controllers\BlogPostController::class, 'index']);
 
 Route::get('/meme/{blogPost}', [\App\Http\Controllers\BlogPostController::class, 'show']);
@@ -36,5 +37,9 @@ Auth::routes();
 
 Route::post('/users/{id}/store', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
 Route::post('/users/{uid}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+
+
+Route::post('/update-haha-count/{blogPost}', [\App\Http\Controllers\HahaController::class, 'updateHahaCount']);
+
 
 ?>

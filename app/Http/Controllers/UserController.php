@@ -16,8 +16,8 @@ class UserController extends Controller
         $result = Followers:: where('user_id' , $id)
         ->where('follower_id', $u_id )->exists();
 
-        $rowcount = Followers::where('follower_id', $u_id );
-        $followerCount = $rowcount->count();
+        // $rowcount = Followers::where('follower_id', $u_id );
+        // $followerCount = $rowcount->count();
 
 
         if ($result) {
