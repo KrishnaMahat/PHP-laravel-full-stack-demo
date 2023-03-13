@@ -29,20 +29,23 @@
                 $user  = \App\Models\User::find($user_id);
                 @endphp
                 <div class="row d-flex gap-1 justify-content-center mb-3">
-                 <div class="card p-4">
-                 <div class="card-title"><h3>Memer: <a href="./meme/profile/{{$user_id}}"> {{$username = $user->name;}}</a></h3></div>
+                 <div class="card p-4 custom-card">
+                 <div class="card-title"><h4>Memer: <a href="./meme/profile/{{$user_id}}" style="text-decoration:none"> {{$username = $user->name;}}</a></h4></div>
                  Created at: {{ ($post->created_at) }}
                  
                     
                     <ul style = "list-style-type: none;">
                     <div class="card-title mt-2"><h5>{{ ucfirst($post->title) }}<h5></div>
-                    <img src = "{{asset('images/'.$post->photo_path)}}" class ="card-img-top">
+                    <img src = "{{asset('images/'.$post->photo_path)}}" class ="card-img-top w-720 custom-image" >
                         <li  >
                        
                         <a href="/meme/{{$post->id}}" class="btn btn-primary mt-3"  @if( $post->user_id != auth()->id()) hidden @endif>  Settings </a>
                         
                         </li>
                     </ul>
+                    <img src = "reacticon/haha.png" height =30px width=30px>
+                    <img src = "reacticon/hahadone.jpeg" height =30px width=30px hidden>
+
                 </div>
                     <br>
                 @empty

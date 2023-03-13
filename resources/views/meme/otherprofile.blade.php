@@ -95,8 +95,8 @@
                     
                 </div>                
                 @forelse($posts as $post)
-               
-                 <div class="card p-4 mt-4">
+                <div class="row d-flex gap-1 justify-content-center mb-3">
+                 <div class="card p-4 mt-4 custom-card">
                  <div class="card-title mt-2"><h4>Memer: {{$username = $user->name;}}</h4></div>
                  Created at: {{ ($post->created_at) }}
                     <ul style = "list-style-type: none;">
@@ -109,6 +109,7 @@
                       
                     </ul>
                 </div>
+                </div>  
                     <br>
                 @empty
                     <p class="text-warning">No blog Posts available</p>

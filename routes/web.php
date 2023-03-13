@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/meme/');
 });
 Route::get('/myprofile/{user_id}', [\App\Http\Controllers\MyprofileController::class, 'index']);
 Route::get('/meme/profile/{user_id}', [\App\Http\Controllers\OtherprofileController::class, 'index']);
@@ -32,10 +32,9 @@ Route::delete('/meme/{blogPost}', [\App\Http\Controllers\BlogPostController::cla
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/users/{id}/store', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
-
 Route::post('/users/{uid}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
 
 ?>

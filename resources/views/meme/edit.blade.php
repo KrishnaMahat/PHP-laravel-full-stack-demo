@@ -5,12 +5,13 @@
     <div class="container">
         <div class="row">
             <div class="col-12 pt-2">
-                <a href="/meme" class="btn btn-outline-primary btn-sm">Go back</a>
-                <div class="border rounded mt-5 pl-4 pr-4 pt-4 pb-4">
-                    <h1 class="display-4">Edit Post</h1>
-                    <p>Edit and submit this form to update a post</p>
+                <div class ="d-flex gap-1 justify-content-center mb-3">
+                
+                <div class=" mt-2 pl-4 pr-4 pt-4 pb-4 w-50">
+                    <h1 class="display-4">Edit Meme</h1>
+                    <p>Edit and submit this form to update a Meme</p>
 
-                    <hr>
+                    <brr>
 
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -33,12 +34,13 @@
                             <div class="control-group col-12 mt-2">
                                 <label for="body">Post Body</label>
                                 <textarea id="body" class="form-control" name="body" placeholder="Enter Post Body"
-                                          rows="5" required>{{ $post->body }}</textarea>
+                                          rows="5" >{{ $post->body }}</textarea>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-4">
                             <div class="control-group col-12 text-center">
-                                <button id="btn-submit" class="btn btn-primary">
+                            <a href="/meme" class="btn btn-danger btn-sm">Go back</a>
+                                <button id="btn-submit" class="btn btn-primary btn-sm">
                                     Update Post
                                 </button>
                             </div>

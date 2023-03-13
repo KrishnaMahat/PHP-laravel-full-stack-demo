@@ -71,8 +71,8 @@
                 </div>                 -->
                 @forelse($posts as $post)
                 @if ($post->user_id == auth()->id())
-               
-                 <div class="card p-4">
+                <div class="row d-flex gap-1 justify-content-center mb-3">
+                 <div class="card p-4 custom-card">
                  <div class="card-title">Memer: {{Auth::user()->name;}}</div>
                  Created at: {{ ($post->created_at) }}
                     <ul style = "list-style-type: none;">
@@ -82,6 +82,7 @@
                         <a href="/meme/{{$post->id}}" class="btn btn-primary mt-3">Settings</a>
                         </li>
                     </ul>
+                </div>
                 </div>
                 @endif
                     <br>

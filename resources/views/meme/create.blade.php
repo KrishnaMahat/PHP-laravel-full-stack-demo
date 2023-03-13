@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-
+    
     <div class="container">
         <div class="row">
             <div class="col-12 pt-2">
-                <a href="/meme" class="btn btn-outline-primary btn-sm">Go back</a>
-                <div class="border rounded mt-5 pl-30 pr-30">
-                    <h4 class="display-7">Create a New Meme</h4>
+                <div class ="d-flex gap-1 justify-content-center mb-3">
+                <div class="mt-5 pl-30 pr-30 w-50">
+                    <h4 class="display-7 ">Create a New Meme</h4><br>
                    
 
-                    <hr>
+                   
 
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -23,8 +23,7 @@
 
                             <div class="control-group col-12">
                                 <label for="photo">Post Photo</label>
-                                <input type="file" id="photo" class="form-control" name="photo"
-                                      >
+                                <input type="file" id="photo" class="form-control" name="photo">
                             </div>
 
 
@@ -34,18 +33,20 @@
                                           rows=""></textarea>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-4">
                             <div class="control-group col-12 text-center">
-                                <button id="btn-submit" class="btn btn-primary">
+                                <a href="/meme" class="btn btn-danger btn-sm">Go back</a>
+                                <button id="btn-submit" class="btn btn-primary btn-sm">
                                     Create Post
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
-
+                </div>
             </div>
         </div>
     </div>
+</div>
 
 @endsection
